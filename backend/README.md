@@ -17,19 +17,19 @@ docker exec -it "nestjs-dev-app" sh
 3. Run the Prisma migrations:
 
 ```bash
-docker exec -it "nestjs-dev-app" sh
+npx prisma migrate dev
 ```
 
 4. Generate the Prisma client:
 
 ```bash
-docker exec -it "nestjs-dev-app" sh
+npx prisma generate
 ```
 
 5. Seed the database:
 
 ```bash
-docker exec -it "nestjs-dev-app" sh
+npx prisma db seed --preview-feature
 ```
 
 6. Access the API at `http://localhost:3000/api`
