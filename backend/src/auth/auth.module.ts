@@ -15,7 +15,7 @@ import { JwtStrategy } from './jwt.strategy';
     JwtModule.register({
       privateKey: readFileSync('./private.key'),
       publicKey: readFileSync('./public.key'),
-      signOptions: { expiresIn: '5m', algorithm: 'RS256' }, // e.g. 30s, 7d, 24h
+      signOptions: { expiresIn: '24h', algorithm: 'RS256' }, // e.g. 30s, 7d, 24h
     }),
     UsersModule,
   ],
