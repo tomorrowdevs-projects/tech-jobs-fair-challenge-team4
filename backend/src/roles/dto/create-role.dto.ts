@@ -9,7 +9,11 @@ export class CreateRoleDto {
 
   @IsNotEmpty()
   @ApiProperty()
-  management: boolean;
+  roleManagement: boolean;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  userManagement: boolean;
 
   @IsNotEmpty()
   @ApiProperty()

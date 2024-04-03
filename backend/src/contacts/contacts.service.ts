@@ -12,23 +12,20 @@ export class ContactsService {
   }
 
   findAll(userID: number) {
-    return this.prisma.contact.findMany({ where: { userId: userID } });
+    return this.prisma.contact.findMany();
   }
 
   findAllInternal(userID: number) {
-    return this.prisma.contact.findMany({ where: { userId: userID, isExternal: false } });
+    return this.prisma.contact.findMany({ where: { isExternal: false } });
   }
 
   findAllExternal(userID: number) {
-    return this.prisma.contact.findMany({ where: { userId: userID, isExternal: true } });
+    return this.prisma.contact.findMany({ where: { isExternal: true } });
   }
 
   findOne(id: number, userID: number) {
     return this.prisma.contact.findUnique({
-      where: { id, userId: userID },
-      include: {
-        user: true
-      }
+      where: { id },
     });
   }
 
@@ -40,6 +37,6 @@ export class ContactsService {
   }
 
   remove(id: number, userID: number) {
-    return this.prisma.contact.delete({ where: { id, userId: userID } });
+    return this.prisma.contact.delete({ where: { id } });
   }
 }

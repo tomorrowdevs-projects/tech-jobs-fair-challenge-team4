@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Request,
+  ParseIntPipe
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ContactsService } from './contacts.service';
@@ -63,7 +64,7 @@ export class ContactsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: ContactEntity })
-  async findOne(@Request() req, @Param('id') id: string) {
+  async findOne(@Request() req, @Param('id', ParseIntPipe) id: number) {
     const contact = await this.contactsService.findOne(+id, req.user.id);
     if (contact)
       return new ContactEntity(contact as ContactEntity);
@@ -77,7 +78,7 @@ export class ContactsController {
   @ApiOkResponse({ type: ContactEntity })
   async update(
     @Request() req,
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateContactDto: UpdateContactDto
   ) {
     return new ContactEntity(
@@ -89,7 +90,7 @@ export class ContactsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: ContactEntity })
-  async remove(@Request() req, @Param('id') id: string) {
+  async remove(@Request() req, @Param('id', ParseIntPipe) id: number) {
     return new ContactEntity(await this.contactsService.remove(+id, req.user.id));
   }
 }

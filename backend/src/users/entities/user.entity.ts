@@ -24,4 +24,7 @@ export class UserEntity implements User {
 
   @Exclude()
   password: string;
+
+  @ApiProperty()
+  roleId: number | null;
 }

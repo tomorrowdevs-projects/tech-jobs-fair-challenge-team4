@@ -13,7 +13,10 @@ export class RoleEntity implements Role {
 	name: string;
 
 	@ApiProperty()
-	management: boolean;
+	roleManagement: boolean;
+
+	@ApiProperty()
+	userManagement: boolean;
 
 	@ApiProperty()
 	deleting: boolean;

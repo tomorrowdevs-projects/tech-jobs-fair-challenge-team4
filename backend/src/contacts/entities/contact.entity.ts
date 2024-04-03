@@ -1,8 +1,10 @@
 import { Contact } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { UserEntity } from 'src/users/entities/user.entity';
 
 export class ContactEntity implements Contact {
+  constructor(partial: Partial<ContactEntity> | null) {
+    Object.assign(this, partial);
+  }
   @ApiProperty()
   id: number;
 
@@ -41,18 +43,4 @@ export class ContactEntity implements Contact {
 
   @ApiProperty()
   updatedAt: Date;
-
-  @ApiProperty()
-  userId: number | null;
-
-  @ApiProperty({ required: false, type: UserEntity })
-  user?: UserEntity;
-
-  constructor({ user, ...data }: Partial<ContactEntity>) {
-    Object.assign(this, data);
-
-    if (user) {
-      this.user = new UserEntity(user);
-    }
-  }
 }

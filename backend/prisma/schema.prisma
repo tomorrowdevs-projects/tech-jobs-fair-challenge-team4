@@ -28,8 +28,7 @@ model Contact {
   notes       String? // Campo per note aggiuntive, come informazioni sulle modalità di comunicazione preferite
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  userId      Int?      @map("user_id")
-  user        User?     @relation("UserContacts", fields: [userId], references: [id])
+  roles       ContactRole[]
 }
 
 model User {
@@ -39,26 +38,28 @@ model User {
   password  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  contacts  Contact[] @relation("UserContacts")
-  roles     UserRole[]
+  roleId    Int?
+  role      Role?      @relation(fields: [roleId], references: [id])
 }
 
 model Role {
-  id          Int        @id @default(autoincrement())
-  name        String
-  management  Boolean
-  deleting    Boolean
-  writing     Boolean
-  editing     Boolean
-  reading     Boolean
-  users     UserRole[]
+  id              Int        @id @default(autoincrement())
+  name            String
+  roleManagement  Boolean
+  userManagement  Boolean
+  deleting        Boolean
+  writing         Boolean
+  editing         Boolean
+  reading         Boolean
+  contacts    ContactRole[]
+  users       User[]
 }
 
-model UserRole {
-  userId Int
-  roleId Int
-  user   User   @relation(fields: [userId], references: [id])
-  role   Role   @relation(fields: [roleId], references: [id])
+model ContactRole {
+  contactId Int
+  roleId    Int
+  contact   Contact   @relation(fields: [contactId], references: [id])
+  role      Role      @relation(fields: [roleId], references: [id])
 
-  @@id([userId, roleId])
+  @@id([contactId, roleId])
 }
