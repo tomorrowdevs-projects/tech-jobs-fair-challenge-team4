@@ -24,10 +24,19 @@ export class ContactEntity implements Contact {
   email: string;
 
   @ApiProperty({ required: false })
+  telegram: string | null;
+
+  @ApiProperty({ required: false })
+  linkedin: string | null;
+
+  @ApiProperty({ required: false })
   department: string | null;
 
   @ApiProperty()
   company: string;
+
+  @ApiProperty({ required: false })
+  vatNumber: string | null;
 
   @ApiProperty({ required: false })
   location: string | null;

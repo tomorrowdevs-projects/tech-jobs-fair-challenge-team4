@@ -20,7 +20,7 @@ async function main() {
       reading: true,
       roleManagement: true,
       userManagement: true,
-      contactManager: true,
+      contactManagement: true,
       writing: true,
     }
   });
@@ -35,7 +35,7 @@ async function main() {
       reading: true,
       roleManagement: false,
       userManagement: false,
-      contactManager: false,
+      contactManagement: false,
       writing: false,
     }
   });

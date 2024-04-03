@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -6,7 +6,7 @@ import { UsersService } from "src/users/users.service";
 
 @Injectable()
 export class RolesService {
-	constructor(private prisma: PrismaService, private usersService: UsersService) {}
+	constructor(private prisma: PrismaService, @Inject(forwardRef(() => UsersService)) private usersService: UsersService) {}
 
 	async create(createRoleDto: CreateRoleDto, userId: number) {
 		if (await this.usersService.isRoleManager(userId))
