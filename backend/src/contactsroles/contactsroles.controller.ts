@@ -7,6 +7,7 @@ import {
 	Param,
 	Delete,
 	UseGuards,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { ContactsrolesService } from "./contactsroles.service";
 import {
@@ -50,7 +51,8 @@ export class ContactsrolesController {
 	@UseGuards(JwtAuthGuard)
 	@ApiBearerAuth()
 	@ApiOkResponse({ type: ContactEntity, isArray: true })
-	FindAllContacstWithRole(@Param("roleId") roleId: number) {
+	@ApiOperation({ summary: "Get all Contacts with RoleId" })
+	FindAllContacstWithRole(@Param("roleId", ParseIntPipe) roleId: number) {
 		return this.contactsrolesService.findAllContactsWithRole(roleId);
 	}
 
@@ -58,15 +60,17 @@ export class ContactsrolesController {
 	@UseGuards(JwtAuthGuard)
 	@ApiBearerAuth()
 	@ApiOkResponse({ type: ContactEntity, isArray: true })
-	FindAllContactsWithRoles(@Param("roleIds") roleIds: number[]) {
+	@ApiOperation({ summary: "Get all Contacts with RoleIds" })
+	FindAllContactsWithRoles(@Param("roleIds", ParseIntPipe) roleIds: number[]) {
 		return this.contactsrolesService.findAllContactsWithRoles(roleIds);
 	}
 
 	@Get(":contactId")
 	@UseGuards(JwtAuthGuard)
 	@ApiBearerAuth()
-	@ApiOkResponse({ type: Contactsrole })
-	FindAllRolesofContact(@Param("contactId") contactId: number) {
+	@ApiOkResponse({ type: Contactsrole, isArray: true })
+	@ApiOperation({ summary: "Get all Roles of ContactId" })
+	FindAllRolesofContact(@Param("contactId", ParseIntPipe) contactId: number) {
 		return this.contactsrolesService.findAllRolesOfContact(contactId);
 	}
 
@@ -75,8 +79,8 @@ export class ContactsrolesController {
 	@ApiBearerAuth()
 	@ApiCreatedResponse({ type: Contactsrole })
 	UpdateRoleToContact(
-		@Param("roleId") roleId: number,
-		@Param("contactId") contactId: number,
+		@Param("roleId", ParseIntPipe) roleId: number,
+		@Param("contactId", ParseIntPipe) contactId: number,
 		@Body() updateContactsroleDto: UpdateContactsroleDto
 	) {
 		return this.contactsrolesService.updateRoleToContact(
@@ -91,8 +95,8 @@ export class ContactsrolesController {
 	@ApiBearerAuth()
 	@ApiCreatedResponse({ type: Contactsrole })
 	remove(
-		@Param("roleId") roleId: number,
-		@Param("contactId") contactId: number
+		@Param("roleId", ParseIntPipe) roleId: number,
+		@Param("contactId", ParseIntPipe) contactId: number
 	) {
 		return this.contactsrolesService.remove(roleId, contactId);
 	}

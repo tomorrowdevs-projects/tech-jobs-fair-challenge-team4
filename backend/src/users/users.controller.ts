@@ -47,6 +47,14 @@ export class UsersController {
     return new UserEntity(await this.usersService.findOne(req.user.id));
   }
 
+  @Get('/myRole')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: Number })
+  async findMyRole(@Request() req) {
+    return new UserEntity(await this.usersService.findMyRole(req.user.id)).roleId;
+  }
+
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -64,6 +72,17 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return new UserEntity(await this.usersService.update(id, updateUserDto));
+  }
+
+  @Patch(':id/roleId/:roleId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ type: UserEntity })
+  async assignRole(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('roleId', ParseIntPipe) roleId: number
+  ) {
+    return new UserEntity(await this.usersService.assignRole(id, roleId));
   }
 
   @Delete(':id')

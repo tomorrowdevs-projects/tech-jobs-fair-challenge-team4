@@ -42,15 +42,23 @@ export class RolesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: RoleEntity })
-  async findOne(@Param('id', ParseIntPipe) id: string) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return new UserEntity( await this.rolesService.findOne(+id));
+  }
+
+  @Get(':name')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: RoleEntity })
+  async findOneByName(@Param('name') name: string) {
+    return new UserEntity( await this.rolesService.findOneByName(name));
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: RoleEntity })
-  async update(@Param('id', ParseIntPipe) id: string, @Body() updateRoleDto: UpdateRoleDto) {
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateRoleDto: UpdateRoleDto) {
     return new RoleEntity( await this.rolesService.update(+id, updateRoleDto));
   }
 
@@ -58,7 +66,7 @@ export class RolesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: RoleEntity })
-  async remove(@Param('id', ParseIntPipe) id: string) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return new RoleEntity( await this.rolesService.remove(+id));
   }
 }

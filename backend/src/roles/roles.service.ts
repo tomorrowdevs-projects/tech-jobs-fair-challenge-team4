@@ -19,6 +19,10 @@ export class RolesService {
 		return this.prisma.role.findUnique({ where: { id } });
 	}
 
+  findOneByName(name: string) {
+		return this.prisma.role.findUnique({ where: { name: name } });
+	}
+
 	update(id: number, updateRoleDto: UpdateRoleDto) {
 		return this.prisma.role.update({ where: { id }, data: updateRoleDto });
 	}

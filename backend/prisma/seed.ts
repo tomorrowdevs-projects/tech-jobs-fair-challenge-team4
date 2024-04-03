@@ -1,45 +1,64 @@
 // prisma/seed.ts
 
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+
+export const roundsOfHashing = 10;
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
 
 async function main() {
-  // create two dummy articles
-  const contact1 = await prisma.contact.upsert({
-    where: { email: 'test1@test.com' },
+
+  const adminRole = await prisma.role.upsert({
+    where: { name: 'Admin' },
     update: {},
     create: {
-      firstName: 'Test1',
-      lastName: 'Test1',
-      title: 'CEO',
-      phoneNumber: '0123456789',
-	  email: 'test1@test.com',
-	  company: 'TechSolutions Inc.',
-	  location: 'Milano, Italy',
-	  isExternal: false,
-	  notes: 'Contatto di Test',
-    },
+      name: 'Admin',
+      deleting: true,
+      editing: true,
+      reading: true,
+      roleManagement: true,
+      userManagement: true,
+      writing: true,
+    }
   });
 
-  const contact2 = await prisma.contact.upsert({
-    where: { email: "test2@test.com" },
+  const toAssign = await prisma.role.upsert({
+    where: { name: 'ToAssign' },
     update: {},
     create: {
-		firstName: 'Test2',
-		lastName: 'Test2',
-		title: 'Developer',
-		phoneNumber: '9876543210',
-		email: 'test2@test.com',
-		company: 'TechSolutions Inc.',
-		location: 'Milano, Italy',
-		isExternal: false,
-		notes: 'Contatto di Test',
-    },
+      name: 'ToAssign',
+      deleting: false,
+      editing: false,
+      reading: false,
+      roleManagement: false,
+      userManagement: false,
+      writing: false,
+    }
   });
 
-  console.log({ contact1, contact2 });
+  const hashedPassword = await bcrypt.hash(
+    'admin1234',
+    roundsOfHashing
+  );
+
+  const adminUser = await prisma.user.upsert({
+    where: { email: 'admin@admin.com' },
+    update: {
+      email: 'admin@admin.com',
+      name: 'Admin',
+      password: hashedPassword,
+      roleId: adminRole.id,
+    },
+    create: {
+      email: 'admin@admin.com',
+      name: 'Admin',
+      password: hashedPassword,
+      roleId: adminRole.id,
+    }});
+
+  console.log({ adminRole, toAssign, adminUser });
 }
 
 // execute the main function
