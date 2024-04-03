@@ -47,6 +47,7 @@ model Role {
   name            String     @unique
   roleManagement  Boolean
   userManagement  Boolean
+  contactManager  Boolean
   deleting        Boolean
   writing         Boolean
   editing         Boolean

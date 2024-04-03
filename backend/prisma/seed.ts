@@ -20,6 +20,7 @@ async function main() {
       reading: true,
       roleManagement: true,
       userManagement: true,
+      contactManager: true,
       writing: true,
     }
   });
@@ -31,9 +32,10 @@ async function main() {
       name: 'ToAssign',
       deleting: false,
       editing: false,
-      reading: false,
+      reading: true,
       roleManagement: false,
       userManagement: false,
+      contactManager: false,
       writing: false,
     }
   });

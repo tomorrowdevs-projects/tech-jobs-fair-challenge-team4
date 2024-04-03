@@ -7,7 +7,8 @@ import {
 	Param,
 	Delete,
 	UseGuards,
-  ParseIntPipe,
+	ParseIntPipe,
+	Request,
 } from "@nestjs/common";
 import { ContactsrolesService } from "./contactsroles.service";
 import {
@@ -32,9 +33,10 @@ export class ContactsrolesController {
 	@UseGuards(JwtAuthGuard)
 	@ApiBearerAuth()
 	@ApiCreatedResponse({ type: Contactsrole })
-	addRoleToContact(@Body() createContactsroleDto: CreateContactsroleDto) {
+	addRoleToContact(@Request() req, @Body() createContactsroleDto: CreateContactsroleDto) {
 		return this.contactsrolesService.addRoleToContact(
-			createContactsroleDto
+			createContactsroleDto,
+			req.user.id
 		);
 	}
 
@@ -52,8 +54,14 @@ export class ContactsrolesController {
 	@ApiBearerAuth()
 	@ApiOkResponse({ type: ContactEntity, isArray: true })
 	@ApiOperation({ summary: "Get all Contacts with RoleId" })
-	FindAllContacstWithRole(@Param("roleId", ParseIntPipe) roleId: number) {
-		return this.contactsrolesService.findAllContactsWithRole(roleId);
+	FindAllContacstWithRole(
+		@Request() req,
+		@Param("roleId", ParseIntPipe) roleId: number
+	) {
+		return this.contactsrolesService.findAllContactsWithRole(
+			roleId,
+			req.user.id
+		);
 	}
 
 	@Get(":roleIds")
@@ -61,8 +69,14 @@ export class ContactsrolesController {
 	@ApiBearerAuth()
 	@ApiOkResponse({ type: ContactEntity, isArray: true })
 	@ApiOperation({ summary: "Get all Contacts with RoleIds" })
-	FindAllContactsWithRoles(@Param("roleIds", ParseIntPipe) roleIds: number[]) {
-		return this.contactsrolesService.findAllContactsWithRoles(roleIds);
+	FindAllContactsWithRoles(
+		@Request() req,
+		@Param("roleIds", ParseIntPipe) roleIds: number[]
+	) {
+		return this.contactsrolesService.findAllContactsWithRoles(
+			roleIds,
+			req.user.id
+		);
 	}
 
 	@Get(":contactId")
@@ -70,8 +84,14 @@ export class ContactsrolesController {
 	@ApiBearerAuth()
 	@ApiOkResponse({ type: Contactsrole, isArray: true })
 	@ApiOperation({ summary: "Get all Roles of ContactId" })
-	FindAllRolesofContact(@Param("contactId", ParseIntPipe) contactId: number) {
-		return this.contactsrolesService.findAllRolesOfContact(contactId);
+	FindAllRolesofContact(
+		@Request() req,
+		@Param("contactId", ParseIntPipe) contactId: number
+	) {
+		return this.contactsrolesService.findAllRolesOfContact(
+			contactId,
+			req.user.id
+		);
 	}
 
 	@Patch("/role/:roleId/contact/:contactId")
@@ -79,14 +99,16 @@ export class ContactsrolesController {
 	@ApiBearerAuth()
 	@ApiCreatedResponse({ type: Contactsrole })
 	UpdateRoleToContact(
+		@Request() req,
 		@Param("roleId", ParseIntPipe) roleId: number,
 		@Param("contactId", ParseIntPipe) contactId: number,
 		@Body() updateContactsroleDto: UpdateContactsroleDto
 	) {
-		return this.contactsrolesService.updateRoleToContact(
+		return this.contactsrolesService.updateRoleOfContact(
 			roleId,
 			contactId,
-			updateContactsroleDto
+			updateContactsroleDto,
+			req.user.id
 		);
 	}
 
@@ -95,9 +117,10 @@ export class ContactsrolesController {
 	@ApiBearerAuth()
 	@ApiCreatedResponse({ type: Contactsrole })
 	remove(
+		@Request() req,
 		@Param("roleId", ParseIntPipe) roleId: number,
 		@Param("contactId", ParseIntPipe) contactId: number
 	) {
-		return this.contactsrolesService.remove(roleId, contactId);
+		return this.contactsrolesService.remove(roleId, contactId, req.user.id);
 	}
 }
