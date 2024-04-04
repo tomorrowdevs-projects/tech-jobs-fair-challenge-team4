@@ -27,9 +27,8 @@ export class ContactsController {
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: ContactEntity })
   async create(@Request() req, @Body() createContactDto: CreateContactDto) {
-    createContactDto.userId = req.user.id;
     return new ContactEntity(
-      await this.contactsService.create(createContactDto)
+      await this.contactsService.create(createContactDto, req.user.id)
     );
   }
 

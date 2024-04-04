@@ -11,12 +11,12 @@ export class ContactsService {
 		private userService: UsersService
 	) {}
 
-	async create(createContactDto: CreateContactDto) {
+	async create(createContactDto: CreateContactDto, userId: number) {
 		if (
 			(await this.userService.isContactManager(
-				createContactDto.userId
+				userId
 			)) ||
-			(await this.userService.canWrite(createContactDto.userId))
+			(await this.userService.canWrite(userId))
 		)
 			return this.prisma.contact.create({ data: createContactDto });
 		return null;

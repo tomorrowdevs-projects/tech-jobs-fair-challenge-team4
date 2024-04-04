@@ -29,7 +29,7 @@ npx prisma generate
 5. Seed the database:
 
 ```bash
-npx prisma db seed --preview-feature
+npx prisma db seed
 ```
 
 6. Access the API at `http://localhost:3000/api`

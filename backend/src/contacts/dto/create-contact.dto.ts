@@ -52,8 +52,4 @@ export class CreateContactDto {
   @IsString()
   @ApiProperty()
   notes?: string;
-
-  @IsOptional()
-  @IsNumber()
-  userId?: number;
 }
