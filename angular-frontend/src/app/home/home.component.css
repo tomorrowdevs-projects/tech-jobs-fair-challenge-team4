@@ -1,0 +1,63 @@
+.home-container {
+    height: 100vh;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.button-link {
+    background-color: #8A80CD;
+    border: none;
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none !important;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.button-link:hover {
+    background-color: #534d7a;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.button-link-minus {
+    background-color: #8a80cdab;
+    border: none;
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none !important;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.button-link-plus {
+    background-color: #8A80CD;
+    border: none;
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none !important;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.button-link-minus:hover, .button-link-plus:hover {
+    background-color: #534d7a;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.contact-list {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+}
