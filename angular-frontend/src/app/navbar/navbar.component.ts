@@ -18,7 +18,7 @@ export class NavbarComponent {
   }
 
   logout(): void {
-    this.storageService.clean('currentUser');
+    this.storageService.clean('userLogged');
     this.redirect('/login');
   }
 
