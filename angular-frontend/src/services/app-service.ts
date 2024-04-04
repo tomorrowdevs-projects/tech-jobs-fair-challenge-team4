@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http-service.service";
 import { response } from "express";
-import { Contact } from "../model/Interface";
+import { Contact, Role, User } from "../model/Interface";
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,23 @@ export class AppService {
     const url = "http://localhost:3000/contacts";
     const contact: Contact[] = await this.httpService.get<Contact[]>(url, token);
     return contact;    
+  }
+
+  async getRoles(token: string){
+    const url = "http://localhost:3000/roles";
+    const roles: Role[] = await this.httpService.get<Role[]>(url, token);
+    return roles;    
+  }
+
+  async getUsers(token: string){
+    const url = "http://localhost:3000/users";
+    const roles: User[] = await this.httpService.get<User[]>(url, token);
+    return roles;    
+  }
+
+  putContact(contact: Contact, token: string){
+    const url = "http://localhost:3000/contacts";
+    console.log(contact);
+    this.httpService.post(url, contact, token);
   }
 }

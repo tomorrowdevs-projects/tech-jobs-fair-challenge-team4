@@ -1,5 +1,5 @@
 export interface Contact {
-    id: number
+  id?: number
   firstName: string
   lastName: string
   title: string
@@ -10,18 +10,30 @@ export interface Contact {
   location: string
   isExternal: boolean
   notes: string
-  createdAt: string
-  updatedAt: string
-  userId: string
-  user: User
+  createdAt?: string
+  updatedAt?: string
+  userId?: string
+  user?: User
 }
-  export interface User {
-    id?: number
-    createdAt?: string
-    updatedAt?: string
-    name?: string
-    email: string
-    roleId?: string
-  }
+export interface User {
+  id?: number
+  createdAt?: string
+  updatedAt?: string
+  name?: string
+  email: string
+  roleId?: string
+}
+export interface Role {
+  id: number
+  name: string
+  roleManagement: boolean
+  userManagement: boolean
+  contactManagement: boolean
+  deleting: boolean
+  writing: boolean
+  editing: boolean
+  reading: boolean
+}
+  
   
   

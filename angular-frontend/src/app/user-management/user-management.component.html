@@ -1,1 +1,25 @@
 <p>user-management works!</p>
+<table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role ID</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filteredUsers">
+        <td>{{ item.id }}</td>
+        <td><input type="text" [(ngModel)]="item.name"></td>
+        <td><input type="text" [(ngModel)]="item.email"></td>
+        <td><input type="text" [(ngModel)]="item.roleId"></td>
+        <td>
+          <button (click)="saveUser(item)">Save</button>
+          <button (click)="deleteUser(item.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
