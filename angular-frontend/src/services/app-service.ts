@@ -1,22 +1,25 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpService } from "./http-service.service";
+import { response } from "express";
+import { Contact } from "../model/Interface";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AppService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpService: HttpService) { }
 
    login(username: string, password: string) {
     const url = "http://localhost:3000/auth/login";
     const body = { email: username, password: password };
 
-    return this.http.post(url, body).toPromise()
-      .then(async (response: any) => {
-        return await response;
-      })
-      .catch(error => {
-        console.error('Si è verificato un errore:', error);
-        throw error;
-      });
+    return this.httpService.post(url, body);
+  }
+
+  async getContact(token: string){
+    const url = "http://localhost:3000/contacts";
+    const contact: Contact[] = await this.httpService.get<Contact[]>(url, token);
+    return contact;    
   }
 }

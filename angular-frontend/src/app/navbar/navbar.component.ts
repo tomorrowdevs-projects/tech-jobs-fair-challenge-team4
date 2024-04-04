@@ -1,35 +1,28 @@
 import { Component } from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/localStorage-service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [MatToolbarModule],
+  providers: [LocalStorageService],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   constructor(
-    private router: Router) { 
-  }
-  redirect(value: string){
-    this.router.navigate([value]);
-  }
-}
-
-
-/* logica per il logout che verifica il local storage non funge */
-export class AppComponent {
-  isLoggedIn(): boolean {
-    return localStorage.getItem('currentUser') !== null;
+    private router: Router,
+    private storageService: LocalStorageService) { 
   }
 
   logout(): void {
-    localStorage.removeItem('currentUser');
+    this.storageService.clean('currentUser');
     this.redirect('/login');
   }
 
-  redirect(route: string): void {
+  redirect(value: string){
+    this.router.navigate([value]);
   }
 }

@@ -25,11 +25,22 @@
         <div class="col-md-5">
             <div class="contact-list">
                 <h3>Elenco Contatti</h3>
-                <ul>
-                    <li>Mario Rossi</li>
-                    <li>Paolo Bianchi</li>
-                    <li>Luigi Verdi</li>
-                </ul>
+                <table>
+                    <thead>
+                      <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let contact of this.contactList">
+                        <td>{{ contact.firstName }}</td>
+                        <td>{{ contact.lastName }}</td>
+                        <td>{{ contact.email }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 <div class="text-center">
                     <button class="btn button-link-minus">Pag -</button>
                     <button class="btn button-link-plus">Pag +</button>
