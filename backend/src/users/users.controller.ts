@@ -34,9 +34,9 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
-  async findAll() {
-    const users = await this.usersService.findAll();
-    return users.map((user) => new UserEntity(user));
+  async findAll(@Request() req) {
+    const users = await this.usersService.findAll(req.user.id);
+    return users?.map((user) => new UserEntity(user));
   }
 
   @Get('/me')

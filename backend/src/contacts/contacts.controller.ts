@@ -39,7 +39,7 @@ export class ContactsController {
   @ApiOkResponse({ type: ContactEntity, isArray: true })
   async findAll(@Request() req) {
     const contacts = await this.contactsService.findAll(req.user.id);
-    return contacts.map((contact) => new ContactEntity(contact));
+    return contacts?.map((contact) => new ContactEntity(contact));
   }
 
   @Get()
@@ -48,7 +48,7 @@ export class ContactsController {
   @ApiOkResponse({ type: ContactEntity, isArray: true })
   async findAllInternal(@Request() req) {
     const contacts = await this.contactsService.findAllInternal(req.user.id);
-    return contacts.map((contact) => new ContactEntity(contact));
+    return contacts?.map((contact) => new ContactEntity(contact));
   }
 
   @Get()
@@ -57,7 +57,7 @@ export class ContactsController {
   @ApiOkResponse({ type: ContactEntity, isArray: true })
   async findAllExternal(@Request() req) {
     const contacts = await this.contactsService.findAllExternal(req.user.id);
-    return contacts.map((contact) => new ContactEntity(contact));
+    return contacts?.map((contact) => new ContactEntity(contact));
   }
 
   @Get(':id')

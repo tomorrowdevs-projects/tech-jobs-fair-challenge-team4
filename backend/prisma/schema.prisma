@@ -21,8 +21,11 @@ model Contact {
   title       String? // Posizione o ruolo nella compagnia, opzionale per contatti esterni
   phoneNumber String   @unique
   email       String   @unique
+  telegram    String?  @unique
+  linkedin    String?  @unique
   department  String? // Opzionale, per contatti interni
   company     String  // Nome dell'azienda, "TechSolutions Inc." per interni o il nome dell'azienda esterna
+  vatNumber   String? // Partita IVA, opzionale
   location    String? // Ubicazione fisica o sede, opzionale
   isExternal  Boolean // Flag per distinguere tra contatti interni ed esterni
   notes       String? // Campo per note aggiuntive, come informazioni sulle modalità di comunicazione preferite
@@ -43,16 +46,17 @@ model User {
 }
 
 model Role {
-  id              Int        @id @default(autoincrement())
-  name            String     @unique
-  roleManagement  Boolean
-  userManagement  Boolean
-  deleting        Boolean
-  writing         Boolean
-  editing         Boolean
-  reading         Boolean
-  contacts    ContactRole[]
-  users       User[]
+  id                  Int        @id @default(autoincrement())
+  name                String     @unique
+  roleManagement      Boolean    @default(false)
+  userManagement      Boolean    @default(false)
+  contactManagement   Boolean    @default(false)
+  deleting            Boolean
+  writing             Boolean
+  editing             Boolean
+  reading             Boolean
+  contacts            ContactRole[]
+  users               User[]
 }
 
 model ContactRole {

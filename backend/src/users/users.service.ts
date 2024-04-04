@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -10,7 +10,7 @@ export const roundsOfHashing = 10;
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService, private rolesService: RolesService) {}
+  constructor(private prisma: PrismaService, @Inject(forwardRef(() => RolesService)) private rolesService: RolesService) {}
 
   async create(createUserDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(
@@ -23,8 +23,10 @@ export class UsersService {
     return this.prisma.user.create({ data: createUserDto });
   }
 
-  findAll() {
-    return this.prisma.user.findMany();
+  async findAll(userId) {
+    if (await this.isUserManager(userId))
+      return this.prisma.user.findMany();
+    return null
   }
 
   findOne(id: number) {
@@ -45,16 +47,74 @@ export class UsersService {
     return this.prisma.user.update({ where: { id }, data: updateUserDto });
   }
 
-  assignRole(id: number, roleId: number) {
-    return this.prisma.user.update({
-      where: { id },
-      data: {
-        roleId,
-      },
-    });
+  async assignRole(id: number, roleId: number) {
+    if (await this.isUserManager(id))
+      return this.prisma.user.update({
+        where: { id },
+        data: {
+          roleId,
+        },
+      });
+    return null;
   }
 
   remove(id: number) {
     return this.prisma.user.delete({ where: { id } });
+  }
+
+  async isRoleManager(userId) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user?.roleId)
+      return false;
+    const role = await this.rolesService.findOne(user.roleId);
+    return role?.roleManagement;
+  }
+
+  async isUserManager(userId) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user?.roleId)
+      return false;
+    const role = await this.rolesService.findOne(user.roleId);
+    return role?.userManagement;
+  }
+
+  async isContactManager(userId) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user?.roleId)
+      return false;
+    const role = await this.rolesService.findOne(user.roleId);
+    return role?.userManagement;
+  }
+
+  async canWrite(userId) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user?.roleId)
+      return false;
+    const role = await this.rolesService.findOne(user.roleId);
+    return role?.writing;
+  }
+
+  async canRead(userId) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user?.roleId)
+      return false;
+    const role = await this.rolesService.findOne(user.roleId);
+    return role?.reading;
+  }
+
+  async canEdit(userId) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user?.roleId)
+      return false;
+    const role = await this.rolesService.findOne(user.roleId);
+    return role?.editing;
+  }
+
+  async canDelete(userId) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user?.roleId)
+      return false;
+    const role = await this.rolesService.findOne(user.roleId);
+    return role?.deleting;
   }
 }

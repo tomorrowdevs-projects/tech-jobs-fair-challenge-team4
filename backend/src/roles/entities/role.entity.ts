@@ -19,6 +19,9 @@ export class RoleEntity implements Role {
 	userManagement: boolean;
 
 	@ApiProperty()
+	contactManagement: boolean;
+
+	@ApiProperty()
 	deleting: boolean;
 
 	@ApiProperty()

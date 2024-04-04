@@ -2,18 +2,29 @@ import { Injectable } from "@nestjs/common";
 import { CreateContactsroleDto } from "./dto/create-contactsrole.dto";
 import { UpdateContactsroleDto } from "./dto/update-contactsrole.dto";
 import { PrismaService } from "src/prisma/prisma.service";
+import { UsersService } from "src/users/users.service";
 
 @Injectable()
 export class ContactsrolesService {
-	constructor(private prisma: PrismaService) {}
+	constructor(
+		private prisma: PrismaService,
+		private userService: UsersService
+	) {}
 
-	addRoleToContact(contactRoleDto: CreateContactsroleDto) {
-		return this.prisma.contactRole.create({
-			data: contactRoleDto,
-		});
+	async addRoleToContact(
+		contactRoleDto: CreateContactsroleDto,
+		userId: number
+	) {
+		if (await this.userService.isContactManager(userId))
+			return this.prisma.contactRole.create({
+				data: contactRoleDto,
+			});
+		return null;
 	}
 
-	async findAllContactsWithRoles(roleIds: number[]) {
+	async findAllContactsWithRoles(roleIds: number[], userId: number) {
+		if (!(await this.userService.canRead(userId))) return null;
+
 		const contactRoles = await this.prisma.contactRole.findMany({
 			where: {
 				roleId: {
@@ -35,7 +46,16 @@ export class ContactsrolesService {
 		return Array.from(contactsMap.values());
 	}
 
-	async findAllContactsWithRole(roleId: number) {
+	async findAllContactsWithRole(roleId: number, userId: number) {
+		const userRole = await this.userService.findMyRole(userId);
+		if (
+			!(await this.userService.isContactManager(userId)) ||
+			!userRole ||
+			userRole.id != roleId ||
+			!(await this.userService.canRead(userId))
+		)
+			return null;
+
 		const contactsRoles = await this.prisma.contactRole.findMany({
 			where: {
 				roleId: roleId,
@@ -44,7 +64,7 @@ export class ContactsrolesService {
 				contact: true,
 			},
 		});
-    return contactsRoles.map(cr => cr.contact).filter(Boolean);
+		return contactsRoles.map((cr) => cr.contact).filter(Boolean);
 	}
 
 	findAllContactsWithoutRoles() {
@@ -57,7 +77,12 @@ export class ContactsrolesService {
 		});
 	}
 
-	findAllRolesOfContact(contactId: number) {
+	async findAllRolesOfContact(contactId: number, userId: number) {
+		if (
+			!(await this.userService.isContactManager(userId)) &&
+			!(await this.userService.canRead(userId))
+		)
+			return null;
 		return this.prisma.contactRole.findMany({
 			where: {
 				roleId: contactId,
@@ -69,11 +94,13 @@ export class ContactsrolesService {
 		});
 	}
 
-	updateRoleToContact(
+	async updateRoleOfContact(
 		contactId: number,
 		roleId: number,
-		contactRoleDto: UpdateContactsroleDto
+		contactRoleDto: UpdateContactsroleDto,
+		userId: number
 	) {
+		if (!(await this.userService.isContactManager(userId))) return null;
 		return this.prisma.contactRole.update({
 			where: {
 				contactId_roleId: {
@@ -85,7 +112,12 @@ export class ContactsrolesService {
 		});
 	}
 
-	remove(contactId: number, roleId: number) {
+	async remove(contactId: number, roleId: number, userId: number) {
+		if (
+			!(await this.userService.isContactManager(userId)) &&
+			!(await this.userService.canDelete(userId))
+		)
+			return null;
 		return this.prisma.contactRole.delete({
 			where: {
 				contactId_roleId: {
