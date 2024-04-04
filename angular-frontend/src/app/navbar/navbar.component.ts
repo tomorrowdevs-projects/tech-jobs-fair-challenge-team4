@@ -17,3 +17,19 @@ export class NavbarComponent {
     this.router.navigate([value]);
   }
 }
+
+
+/* logica per il logout che verifica il local storage non funge */
+export class AppComponent {
+  isLoggedIn(): boolean {
+    return localStorage.getItem('currentUser') !== null;
+  }
+
+  logout(): void {
+    localStorage.removeItem('currentUser');
+    this.redirect('/login');
+  }
+
+  redirect(route: string): void {
+  }
+}
