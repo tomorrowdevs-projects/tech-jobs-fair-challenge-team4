@@ -114,7 +114,7 @@
 
 @media (max-width: 768px) {
     .modal {
-        margin-top: 50px;
+        margin-top: 15rem;
     }
 
     .modal-content {
@@ -122,4 +122,5 @@
         margin: 0 auto;
     }
 }
+
 
