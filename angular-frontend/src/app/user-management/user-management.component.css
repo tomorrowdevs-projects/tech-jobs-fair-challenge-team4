@@ -1,8 +1,9 @@
 .table-responsive {
     overflow-x: auto;
+    margin-top: 3rem;
 }
 
-.button-link {
+.button-link-save {
     background-color: #8A80CD;
     border: none;
     color: white !important;
@@ -13,8 +14,23 @@
     text-transform: uppercase;
 }
 
-.button-link:hover {
+.button-link-save:hover {
     background-color: #534d7a;
+}
+
+.button-link-delete {
+    background-color: #7062cd;
+    border: none;
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none !important;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.button-link-delete:hover {
+    background-color: #534997;
 }
 
 @media (max-width: 767px) {
