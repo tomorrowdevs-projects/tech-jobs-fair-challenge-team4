@@ -38,6 +38,8 @@ export interface Role {
 export interface SessionUser {
   id: number
   name: string
+  email: string
+  roleId: string
   roleManagement: boolean
   userManagement: boolean
   contactManagement: boolean
@@ -46,6 +48,6 @@ export interface SessionUser {
   editing: boolean
   reading: boolean
 }
-  
-  
-  
+
+
+

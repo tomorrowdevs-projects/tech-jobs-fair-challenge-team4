@@ -25,7 +25,7 @@ export class LoginComponent {
 
   constructor(private service: AppService,
     private router: Router,
-    private storage: LocalStorageService) { 
+    private storage: LocalStorageService) {
     this.loggedUser = storage.get("userLogged");
   }
 
@@ -40,15 +40,17 @@ export class LoginComponent {
       if(response.accessToken != undefined){
 
         this.loggedUser = {
-          id: response.id,
-          name: response.name,
-          roleManagement: response.roleManagement,
-          userManagement: response.userManagement,
-          contactManagement: response.contactManagement,
-          deleting: response.deleting,
-          writing: response.writing,
-          editing: response.editing,
-          reading: response.reading
+          id: response.user.id,
+          email: response.user.email,
+          name: response.user.name,
+          roleId: response.user.roleId,
+          roleManagement: response.user.roleManager,
+          userManagement: response.user.userManager,
+          contactManagement: response.user.contactManager,
+          deleting: response.user.canDelete,
+          writing: response.user.canWrite,
+          editing: response.user.canUpdate,
+          reading: response.user.Canread
         };
 
         this.storage.set("userLogged", this.loggedUser);

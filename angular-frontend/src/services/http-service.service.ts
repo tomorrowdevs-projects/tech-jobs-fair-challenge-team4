@@ -23,7 +23,19 @@ export class HttpService {
 
   get<T>(url: any, token?: any){
     const headers = this.getHeaders(token);
-    return this.http.get<Contact[]>(url, {headers}).toPromise()
+    return this.http.get<any[]>(url, {headers}).toPromise()
+    .then(async (response: any) => {
+      return await response;
+    })
+    .catch(error => {
+      console.error('Si è verificato un errore:', error);
+      throw error;
+    });
+  }
+
+  delete<T>(url: any, token?: any){
+    const headers = this.getHeaders(token);
+    return this.http.delete<any[]>(url, {headers}).toPromise()
     .then(async (response: any) => {
       return await response;
     })

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LocalStorageService } from '../../services/localStorage-service';
 import { AppService } from '../../services/app-service';
-import { Role, User } from '../../model/Interface';
+import { Role, SessionUser, User } from '../../model/Interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrl: './role-management.component.css'
 })
 export class RoleManagementComponent {
-  loggedUser?: User;
+  loggedUser?: SessionUser;
   roleList: Role[] = [];
   filteredRole: Role[] = [];
   token: string = "";
@@ -32,8 +32,10 @@ export class RoleManagementComponent {
     if(this.loggedUser == undefined){
       this.router.navigate(["/login"]);
     }
-    //TODO controllo sul ruolo di login
-    // se non autorizzato this.router.navigate(["/home"]);
+
+    if (this.loggedUser?.roleManagement == false){
+      this.router.navigate(["/home"]);
+    }
     this.getRoles()
   }
 
@@ -41,9 +43,9 @@ export class RoleManagementComponent {
     this.roleList = await this.appService.getRoles(this.token);
     this.filteredRole = this.roleList;
   }
-  
-  deleteRole(id: any){
-// TODO implementare funzione
+
+  async deleteRole(id: any){
+    await this.appService.deleteRole(id, this.token);
   }
 }
 

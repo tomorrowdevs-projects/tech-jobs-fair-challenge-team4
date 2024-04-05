@@ -11,7 +11,7 @@
 
     <!-- Navigazione superiore -->
     <div class="row mb-3 justify-content-center align-items-center">
-        <div class="col-md-2">
+        <div class="col-md-2" *ngIf="loggedUser?.contactManagement || loggedUser?.writing">
             <button class="btn button-link" (click)="openModal()">New Contact</button>
             <!-- (click)="openNewCo-ntactModal" -->
             <!-- l'ho tolto dal bottone perchè mi dava errore, non so come implementare , sorry -->
@@ -227,7 +227,7 @@
 </div>
 
 <!-- modale per i campi di ricerca da creare la logica perchè sto impazzendo nel crearla -->
-<!-- <div class="modal" > 
+<!-- <div class="modal" >
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Search Contacts</h5>

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LocalStorageService } from '../../services/localStorage-service';
 import { AppService } from '../../services/app-service';
-import { Role, User } from '../../model/Interface';
+import { Role, SessionUser, User } from '../../model/Interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrl: './user-management.component.css'
 })
 export class UserManagementComponent {
-  loggedUser?: User;
+  loggedUser?: SessionUser;
   userList: User[] = [];
   filteredUsers: User[] = [];
   token: string = "";
@@ -31,8 +31,9 @@ export class UserManagementComponent {
       this.router.navigate(["/login"]);
     }
 
-    //TODO controllo sul ruolo di login
-    // se non autorizzato this.router.navigate(["/home"]);
+    if (this.loggedUser?.userManagement == false){
+      this.router.navigate(["/home"]);
+    }
     this.getUsers()
   }
 
@@ -41,11 +42,13 @@ export class UserManagementComponent {
     this.filteredUsers = this.userList;
   }
 
-  saveUser(user: User){
+  async saveUser(user: User){
     //TODO implementare funzione
   }
-  deleteUser(userId: any){
-    //TODO implementare funzione
+
+  async deleteUser(userId: any){
+    const user = await this.appService.deleteUser(userId, this.token);
+    this.userList.splice(this.userList.findIndex((u) => u.id == user.id), 1);
   }
 
 }

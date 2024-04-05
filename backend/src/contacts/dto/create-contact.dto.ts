@@ -31,12 +31,27 @@ export class CreateContactDto {
   @IsOptional()
   @IsString()
   @ApiProperty()
+  telegram?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  linkedin?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
   department?: string;
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
   company: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  vatNumber?: string;
 
   @IsOptional()
   @IsString()

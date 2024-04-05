@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LocalStorageService } from '../../services/localStorage-service';
 import { Router } from '@angular/router';
-import { Contact, User } from '../../model/Interface';
+import { Contact, SessionUser, User } from '../../model/Interface';
 import { AppService } from '../../services/app-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  loggedUser?: User;
+  loggedUser?: SessionUser;
   contactList: Contact[];
   filteredContacts: Contact[];
   token: string;
@@ -56,7 +56,7 @@ export class HomeComponent {
           notes: ''
         }
     }
-  
+
   ngOnInit(){
     this.loggedUser = this.storage.get("userLogged");
     if(this.loggedUser == undefined){
@@ -64,7 +64,7 @@ export class HomeComponent {
     }
     this.getContacts();
   }
-  
+
   async getContacts(){
     this.contactList = await this.appService.getContact(this.token);
     this.filteredContacts = this.contactList;
