@@ -40,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let contact of this.filteredContacts">
+                        <tr (click)="detail(contact)" *ngFor=" let contact of this.filteredContacts">
                             <td>{{ contact.firstName }}</td>
                             <td>{{ contact.lastName }}</td>
                             <td>{{ contact.email }}</td>
@@ -56,8 +56,41 @@
         <!-- Dettaglio Contatto -->
         <div class="col-md-6">
             <div class="contact-list">
-                <h3>Dettaglio completo</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat.</p>
+                <div class="card-header">
+                    Contact Details
+                  </div>
+                  <div class="card-body">
+                    <div>
+                      <strong>First Name:</strong> {{ detailContact.firstName }}
+                    </div>
+                    <div>
+                      <strong>Last Name:</strong> {{ detailContact.lastName }}
+                    </div>
+                    <div>
+                      <strong>Title:</strong> {{ detailContact.title }}
+                    </div>
+                    <div>
+                      <strong>Phone Number:</strong> {{ detailContact.phoneNumber }}
+                    </div>
+                    <div>
+                      <strong>Email:</strong> {{ detailContact.email }}
+                    </div>
+                    <div>
+                      <strong>Department:</strong> {{ detailContact.department }}
+                    </div>
+                    <div>
+                      <strong>Company:</strong> {{ detailContact.company }}
+                    </div>
+                    <div>
+                      <strong>Location:</strong> {{ detailContact.location }}
+                    </div>
+                    <div>
+                      <strong>External:</strong> {{ detailContact.isExternal ? 'Yes' : 'No' }}
+                    </div>
+                    <div>
+                      <strong>Notes:</strong> {{ detailContact.notes }}
+                    </div>
+                  </div>
             </div>
         </div>
     </div>

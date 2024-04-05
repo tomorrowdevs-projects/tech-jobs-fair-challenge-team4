@@ -20,6 +20,8 @@ export class RoleManagementComponent {
   filteredRole: Role[] = [];
   token: string = "";
 
+  //TODO aggiungere form per modale e funzioni di salvataggio
+
   constructor(private storage: LocalStorageService,
     private router: Router,
     private appService: AppService){}
@@ -30,6 +32,8 @@ export class RoleManagementComponent {
     if(this.loggedUser == undefined){
       this.router.navigate(["/login"]);
     }
+    //TODO controllo sul ruolo di login
+    // se non autorizzato this.router.navigate(["/home"]);
     this.getRoles()
   }
 
@@ -39,7 +43,7 @@ export class RoleManagementComponent {
   }
   
   deleteRole(id: any){
-
+// TODO implementare funzione
   }
 }
 

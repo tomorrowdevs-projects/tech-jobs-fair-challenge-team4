@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppService } from '../../services/app-service.js';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../model/Interface';
+import { SessionUser, User } from '../../model/Interface';
 import { LocalStorageService } from '../../services/localStorage-service.js';
 
 interface CurrUser{
@@ -21,7 +21,7 @@ interface CurrUser{
 })
 export class LoginComponent {
   currentUser: CurrUser = {"username":"", "password":""};
-  loggedUser?: User;
+  loggedUser?: SessionUser;
 
   constructor(private service: AppService,
     private router: Router,
@@ -36,10 +36,21 @@ export class LoginComponent {
   }
 
   public login(){
-    console.log(`start login with parameters: ${this.currentUser.username} and ${this.currentUser.password}`)
     this.service.login(this.currentUser.username, this.currentUser.password).then((response) => {
       if(response.accessToken != undefined){
-        this.loggedUser = {"email": this.currentUser.username};
+
+        this.loggedUser = {
+          id: response.id,
+          name: response.name,
+          roleManagement: response.roleManagement,
+          userManagement: response.userManagement,
+          contactManagement: response.contactManagement,
+          deleting: response.deleting,
+          writing: response.writing,
+          editing: response.editing,
+          reading: response.reading
+        };
+
         this.storage.set("userLogged", this.loggedUser);
         this.storage.set("token", response.accessToken);
         this.router.navigate(["/home"]);

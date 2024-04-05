@@ -34,6 +34,18 @@ export interface Role {
   editing: boolean
   reading: boolean
 }
+
+export interface SessionUser {
+  id: number
+  name: string
+  roleManagement: boolean
+  userManagement: boolean
+  contactManagement: boolean
+  deleting: boolean
+  writing: boolean
+  editing: boolean
+  reading: boolean
+}
   
   
   

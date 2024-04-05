@@ -22,14 +22,14 @@
                 <div class="navbar-title-container text-center">
                     <span class="navbar-title">TechSolutions Inc. - PHONEBOOK </span>
                 </div>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" *ngIf="logged">
                     <li class="nav-item">
                         <button class="nav-link button-link me-2" (click)="redirect('/home')">Contact</button>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="userLogged?.roleManagement">
                         <button class="nav-link button-link me-2" (click)="redirect('/role')">Role</button>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="userLogged?.userManagement">
                         <button class="button-link me-2" (click)="redirect('/users')">Users</button>
                     </li>
                     <li class="nav-item" >

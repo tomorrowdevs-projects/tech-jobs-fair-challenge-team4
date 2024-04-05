@@ -1,14 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http-service.service";
 import { response } from "express";
-import { Contact, Role, User } from "../model/Interface";
+import { Contact, Role, SessionUser, User } from "../model/Interface";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {
+   }
 
    login(username: string, password: string) {
     const url = "http://localhost:3000/auth/login";
@@ -37,7 +38,6 @@ export class AppService {
 
   putContact(contact: Contact, token: string){
     const url = "http://localhost:3000/contacts";
-    console.log(contact);
     this.httpService.post(url, contact, token);
   }
 }

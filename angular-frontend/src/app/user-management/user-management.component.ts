@@ -30,6 +30,9 @@ export class UserManagementComponent {
     if(this.loggedUser == undefined){
       this.router.navigate(["/login"]);
     }
+
+    //TODO controllo sul ruolo di login
+    // se non autorizzato this.router.navigate(["/home"]);
     this.getUsers()
   }
 
@@ -38,7 +41,11 @@ export class UserManagementComponent {
     this.filteredUsers = this.userList;
   }
 
-  saveUser(user: User){}
-  deleteUser(userId: any){}
+  saveUser(user: User){
+    //TODO implementare funzione
+  }
+  deleteUser(userId: any){
+    //TODO implementare funzione
+  }
 
 }

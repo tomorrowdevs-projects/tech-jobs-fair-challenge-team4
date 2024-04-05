@@ -22,6 +22,7 @@ export class HomeComponent {
   contactForm: Contact;
   modalOn: boolean = false;
   searchBarText: string = "";
+  detailContact: Contact;
 
   constructor(private storage: LocalStorageService,
     private router: Router,
@@ -42,6 +43,18 @@ export class HomeComponent {
           isExternal: false,
           notes: ''
         };
+        this.detailContact = {
+          firstName: '',
+          lastName: '',
+          title: '',
+          phoneNumber: '',
+          email: '',
+          department: '',
+          company: '',
+          location: '',
+          isExternal: false,
+          notes: ''
+        }
     }
   
   ngOnInit(){
@@ -78,5 +91,24 @@ export class HomeComponent {
         contact.firstName.toLowerCase().includes(this.searchBarText.toLowerCase()) ||
         contact.lastName.toLowerCase().includes(this.searchBarText.toLowerCase())
       );
+  }
+
+  detail(c: Contact){
+    this.detailContact = c;
+  }
+
+  clearDetail(){
+    this.detailContact = {
+      firstName: '',
+      lastName: '',
+      title: '',
+      phoneNumber: '',
+      email: '',
+      department: '',
+      company: '',
+      location: '',
+      isExternal: false,
+      notes: ''
+    };
   }
 }
