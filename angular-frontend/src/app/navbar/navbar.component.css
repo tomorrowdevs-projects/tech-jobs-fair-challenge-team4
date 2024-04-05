@@ -28,21 +28,6 @@
   border: none;
 }
 
-/* .navbar-nav .nav-link {
-  color: white !important;
-  background-color: #8A80CD;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-} */
-
-/* .navbar-nav .nav-link:hover {
-  color: rgba(255, 255, 255, 0.8) !important;
-} */
-
 .button-link {
   background-color: #8A80CD;
   border: none;
@@ -71,4 +56,29 @@
 
 .button-link-logout:hover {
   background-color: #534997;
+}
+
+
+
+
+
+
+/* mediaQuery mobile stile bottoni centrati */
+@media (max-width: 991px) {
+  .navbar-nav {
+    align-items: center;
+  }
+
+  .navbar-nav .nav-item {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .navbar-nav .nav-item:last-child {
+    margin-bottom: 10px;
+  }
+
+  .navbar-title {
+    margin: 3rem 0;
+  }
 }

@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    position: relative;
+    width: 80%;
+}

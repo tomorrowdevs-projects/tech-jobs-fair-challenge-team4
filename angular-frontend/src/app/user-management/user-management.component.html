@@ -1,4 +1,4 @@
-<p>user-management works!</p>
+<!-- <p>user-management works!</p>
 <table>
     <thead>
       <tr>
@@ -21,5 +21,34 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role ID</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filteredUsers">
+            <td>{{ item.id }}</td>
+            <td><input type="text" [(ngModel)]="item.name"></td>
+            <td><input type="text" [(ngModel)]="item.email"></td>
+            <td><input type="text" [(ngModel)]="item.roleId"></td>
+            <td>
+              <button class="nav-link button-link me-2" (click)="saveUser(item)">Save</button>
+              <button class="nav-link button-link me-2" (click)="deleteUser(item.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
   
