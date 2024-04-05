@@ -64,58 +64,6 @@
 </div>
 
 <!-- Modale per inserimento nuovo contatto -->
-
-<!-- <div class="modal" *ngIf="modalOn">
-    <div class="form-group">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" class="form-control" placeholder="Enter first name"
-            [(ngModel)]="contactForm.firstName">
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" [(ngModel)]="contactForm.lastName" class="form-control"
-            placeholder="Enter last name">
-    </div>
-    <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" id="title" [(ngModel)]="contactForm.title" class="form-control" placeholder="Enter title">
-    </div>
-    <div class="form-group">
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="tel" id="phoneNumber" [(ngModel)]="contactForm.phoneNumber" class="form-control"
-            placeholder="Enter phone number">
-    </div>
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" [(ngModel)]="contactForm.email" class="form-control" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="department">Department:</label>
-        <input type="text" id="department" [(ngModel)]="contactForm.department" class="form-control"
-            placeholder="Enter department">
-    </div>
-    <div class="form-group">
-        <label for="company">Company:</label>
-        <input type="text" id="company" [(ngModel)]="contactForm.company" class="form-control"
-            placeholder="Enter company">
-    </div>
-    <div class="form-group">
-        <label for="location">Location:</label>
-        <input type="text" id="location" [(ngModel)]="contactForm.location" class="form-control"
-            placeholder="Enter location">
-    </div>
-    <div class="form-group">
-        <label for="isExternal">Is External:</label>
-        <input type="checkbox" id="isExternal" [(ngModel)]="contactForm.isExternal" class="form-control">
-    </div>
-    <div class="form-group">
-        <label for="notes">Notes:</label>
-        <textarea id="notes" [(ngModel)]="contactForm.notes" class="form-control" placeholder="Enter notes"></textarea>
-    </div>
-    <button type="submit" class="btn nav-link button-link" (click)="insertContact()">Submit</button>
-    <button type="submit" class="btn nav-link button-link" (click)="closeModal()">Close</button>
-</div> -->
-
 <div class="modal" *ngIf="modalOn">
     <div class="modal-content">
         <div class="modal-header">
@@ -165,7 +113,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="telegram">Telegram:</label>
-                        <input type="text" id="telegram" class="form-control" placeholder="Enter telegram"><!-- manca la logica perchè non è definita -->
+                        <input type="text" id="telegram" class="form-control"
+                            placeholder="Enter telegram"><!-- manca la logica perchè non è definita -->
                     </div>
                 </div>
             </div>
@@ -173,7 +122,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="linkedin">Linkedin:</label>
-                        <input type="text" id="linkedin" class="form-control" placeholder="Enter linkedin"><!-- manca la logica perchè non è definita -->
+                        <input type="text" id="linkedin" class="form-control"
+                            placeholder="Enter linkedin"><!-- manca la logica perchè non è definita -->
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -211,19 +161,20 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="external">External:</label>
-                        <input type="checkbox" id="external" class="form-control"><!-- manca la logica perchè non è definita -->
+                        <input type="checkbox" id="external"
+                            class="form-control"><!-- manca la logica perchè non è definita -->
                     </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
-                                            <div class="form-group" >
-                <label for="externalType">External Type:</label>
-                <select id="externalType" class="form-control">
-                    <option value="supplier">Supplier</option>
-                    <option value="client">Client</option>
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="externalType">External Type:</label>
+                        <select id="externalType" class="form-control">
+                            <option value="supplier">Supplier</option>
+                            <option value="client">Client</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -241,3 +192,85 @@
         </div>
     </div>
 </div>
+
+<!-- modale per i campi di ricerca da creare la logica perchè sto impazzendo nel crearla -->
+<!-- <div class="modal" > 
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Search Contacts</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchName">Name:</label>
+                        <input type="text" id="searchName" class="form-control" placeholder="Enter name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchEmail">Email:</label>
+                        <input type="email" id="searchEmail" class="form-control" placeholder="Enter email">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchTelegram">Telegram:</label>
+                        <input type="text" id="searchTelegram" class="form-control" placeholder="Enter telegram">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchLinkedin">Linkedin:</label>
+                        <input type="text" id="searchLinkedin" class="form-control" placeholder="Enter linkedin">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchDepartment">Department:</label>
+                        <input type="text" id="searchDepartment" class="form-control" placeholder="Enter department">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchCompany">Company:</label>
+                        <input type="text" id="searchCompany" class="form-control" placeholder="Enter company">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchLocation">Location:</label>
+                        <input type="text" id="searchLocation" class="form-control" placeholder="Enter location">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchExternal">External:</label>
+                        <input type="checkbox" id="searchExternal" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchExternalType">External Type:</label>
+                        <select id="searchExternalType" class="form-control">
+                            <option value="supplier">Supplier</option>
+                            <option value="client">Client</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn nav-link button-link" >Search</button>
+            <button type="button" class="btn nav-link button-link" >Close</button>
+        </div>
+    </div>
+</div> -->
