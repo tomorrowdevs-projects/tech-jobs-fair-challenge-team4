@@ -13,26 +13,36 @@
     <div class="row mb-3 justify-content-center align-items-center">
         <div class="col-md-2" *ngIf="loggedUser?.contactManagement || loggedUser?.writing">
             <button class="btn button-link" (click)="openModal()">New Contact</button>
-            <!-- (click)="openNewCo-ntactModal" -->
-            <!-- l'ho tolto dal bottone perchè mi dava errore, non so come implementare , sorry -->
         </div>
-        <div class="col-md-9">
-            <button class="btn button-link w-100">Filtri</button>
+        <div class="col-md-9 d-flex ">
+            <div class="col-3">
+                <span class="btn button-link">Filtri</span>
+            </div>
+            <div class="col-9">
+                <!-- Search bar -->
+                <div class="row mb-3">
+                    <input type="text" [(ngModel)]="searchBarText" (ngModelChange)="search()"
+                        class="form-control custom-input">
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Search bar -->
-    <div class="row mb-3 justify-content-center align-items-center">
-        <input type="text" [(ngModel)]="searchBarText" (ngModelChange)="search()">
-    </div>
+
+
 
     <div class="row justify-content-center align-items-center">
-        <!-- Lista di contatti -->
-        <div class="col-md-5">
-            <div class="contact-list">
-                <h3>Elenco Contatti</h3>
-                <table>
-                    <thead>
+
+<!-- Lista di contatti -->
+<div class="col-md-5 col-12">
+    <div class="card">
+        <div class="card-header card-contact-header text-center">
+            <h3 class="mb-0">Elenco Contatti</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
                         <tr>
                             <th>First name</th>
                             <th>Last name</th>
@@ -40,61 +50,72 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr (click)="detail(contact)" *ngFor=" let contact of this.filteredContacts">
+                        <tr (click)="detail(contact)" *ngFor="let contact of filteredContacts" class="contact-row">
                             <td>{{ contact.firstName }}</td>
                             <td>{{ contact.lastName }}</td>
                             <td>{{ contact.email }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <!--<div class="text-center">
-                    <button class="btn button-link-minus">Pag -</button>
-                    <button class="btn button-link-plus">Pag +</button>
-                </div>-->
-            </div>
-        </div>
-        <!-- Dettaglio Contatto -->
-        <div class="col-md-6">
-            <div class="contact-list">
-                <div class="card-header">
-                    Contact Details
-                  </div>
-                  <div class="card-body">
-                    <div>
-                      <strong>First Name:</strong> {{ detailContact.firstName }}
-                    </div>
-                    <div>
-                      <strong>Last Name:</strong> {{ detailContact.lastName }}
-                    </div>
-                    <div>
-                      <strong>Title:</strong> {{ detailContact.title }}
-                    </div>
-                    <div>
-                      <strong>Phone Number:</strong> {{ detailContact.phoneNumber }}
-                    </div>
-                    <div>
-                      <strong>Email:</strong> {{ detailContact.email }}
-                    </div>
-                    <div>
-                      <strong>Department:</strong> {{ detailContact.department }}
-                    </div>
-                    <div>
-                      <strong>Company:</strong> {{ detailContact.company }}
-                    </div>
-                    <div>
-                      <strong>Location:</strong> {{ detailContact.location }}
-                    </div>
-                    <div>
-                      <strong>External:</strong> {{ detailContact.isExternal ? 'Yes' : 'No' }}
-                    </div>
-                    <div>
-                      <strong>Notes:</strong> {{ detailContact.notes }}
-                    </div>
-                  </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<!-- Dettaglio Contatto -->
+<div class="col-md-6 col-12">
+    <div class="card card-mobile">
+        <div class="card-header card-contact-header text-center">
+            <h4>Contact Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <strong>First Name:</strong> {{ detailContact.firstName }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Last Name:</strong> {{ detailContact.lastName }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <strong>Title:</strong> {{ detailContact.title }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Phone Number:</strong> {{ detailContact.phoneNumber }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <strong>Email:</strong> {{ detailContact.email }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Department:</strong> {{ detailContact.department }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <strong>Company:</strong> {{ detailContact.company }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Location:</strong> {{ detailContact.location }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <strong>External:</strong> {{ detailContact.isExternal ? 'Yes' : 'No' }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Notes:</strong> {{ detailContact.notes }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modale per inserimento nuovo contatto -->
 <div class="modal" *ngIf="modalOn">
@@ -225,85 +246,3 @@
         </div>
     </div>
 </div>
-
-<!-- modale per i campi di ricerca da creare la logica perchè sto impazzendo nel crearla -->
-<!-- <div class="modal" >
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Search Contacts</h5>
-        </div>
-        <div class="modal-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchName">Name:</label>
-                        <input type="text" id="searchName" class="form-control" placeholder="Enter name">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchEmail">Email:</label>
-                        <input type="email" id="searchEmail" class="form-control" placeholder="Enter email">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchTelegram">Telegram:</label>
-                        <input type="text" id="searchTelegram" class="form-control" placeholder="Enter telegram">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchLinkedin">Linkedin:</label>
-                        <input type="text" id="searchLinkedin" class="form-control" placeholder="Enter linkedin">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchDepartment">Department:</label>
-                        <input type="text" id="searchDepartment" class="form-control" placeholder="Enter department">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchCompany">Company:</label>
-                        <input type="text" id="searchCompany" class="form-control" placeholder="Enter company">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchLocation">Location:</label>
-                        <input type="text" id="searchLocation" class="form-control" placeholder="Enter location">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchExternal">External:</label>
-                        <input type="checkbox" id="searchExternal" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="searchExternalType">External Type:</label>
-                        <select id="searchExternalType" class="form-control">
-                            <option value="supplier">Supplier</option>
-                            <option value="client">Client</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn nav-link button-link" >Search</button>
-            <button type="button" class="btn nav-link button-link" >Close</button>
-        </div>
-    </div>
-</div> -->

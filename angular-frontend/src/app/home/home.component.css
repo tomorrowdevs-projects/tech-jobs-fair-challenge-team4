@@ -111,6 +111,16 @@
     cursor: pointer;
 }
 
+.card-contact-header {
+    background-color: #ab9090;
+}
+
+
+.contact-row:hover {
+    cursor: pointer;
+}
+
+
 
 @media (max-width: 768px) {
     .modal {
@@ -120,6 +130,13 @@
     .modal-content {
         max-width: 90%;
         margin: 0 auto;
+    }
+
+    .contact-list{
+        margin-bottom: 2rem;
+    }
+    .card-mobile{
+        margin-top: 2rem;
     }
 }
 
