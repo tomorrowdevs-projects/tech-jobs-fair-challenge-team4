@@ -1,0 +1,20 @@
+# Use official node image as the base image
+FROM node:18.13.0-alpine as development
+
+# Set /app directory as our work directory
+WORKDIR /usr/src/app/angular-frontend
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install all dependencies
+RUN npm install
+
+# Install Angular CLI globally
+RUN npm install -g @angular/cli
+
+# Copy all other source code to work directory
+COPY . .
+
+# Start the application
+CMD ["npm", "start"]

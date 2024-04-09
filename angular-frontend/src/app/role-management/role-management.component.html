@@ -1,0 +1,64 @@
+<!-- Aggiungi pulsante per aprire la modale -->
+<div class="container">
+  <button class="button-link">Add Role</button>
+</div>
+
+<!-- Modale per aggiungere un nuovo ruolo -->
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="button-link modal-title">Add Role</button>    
+      </div>
+      <div class="modal-body">
+        <!-- Form per aggiungere un ruolo -->
+        <div class="form-group">
+          <label for="roleName">Role Name:</label>
+          <input type="text" class="form-control" id="roleName">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-link-close" >Close</button>
+        <button type="button" class="button-link" >Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabella dei ruoli -->
+<div class="container">
+  <div class="table-container">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Role Management</th>
+          <th>User Management</th>
+          <th>Contact Management</th>
+          <th>Deleting</th>
+          <th>Writing</th>
+          <th>Editing</th>
+          <th>Reading</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredRole">
+          <td>{{ item.id }}</td>
+          <td><input type="text" [(ngModel)]="item.name" class="form-control"></td>
+          <td><input type="checkbox" [(ngModel)]="item.roleManagement"></td>
+          <td><input type="checkbox" [(ngModel)]="item.userManagement"></td>
+          <td><input type="checkbox" [(ngModel)]="item.contactManagement"></td>
+          <td><input type="checkbox" [(ngModel)]="item.deleting"></td>
+          <td><input type="checkbox" [(ngModel)]="item.writing"></td>
+          <td><input type="checkbox" [(ngModel)]="item.editing"></td>
+          <td><input type="checkbox" [(ngModel)]="item.reading"></td>
+          <td>
+            <button class="button-link-close" (click)="deleteRole(item.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

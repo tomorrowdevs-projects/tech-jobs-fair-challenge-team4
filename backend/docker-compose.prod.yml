@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  nestjs-app:
+    container_name: nestjs-prod-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://postgres:password@postgres:5432/postgresdb
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres-prod
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgresdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres-prod-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-prod-data:

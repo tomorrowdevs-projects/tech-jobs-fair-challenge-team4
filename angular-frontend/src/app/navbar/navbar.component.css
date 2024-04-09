@@ -1,0 +1,84 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.navbar-title-container {
+  flex-grow: 1;
+}
+
+.navbar {
+  width: 70%;
+  border-radius: 10px;
+  background-color: #ab9090 !important;
+}
+
+.navbar-title {
+  margin-left: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.navbar-brand img {
+  margin-right: 10px;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.button-link {
+  background-color: #8A80CD;
+  border: none;
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.button-link:hover {
+  background-color: #534d7a;
+}
+
+.button-link-logout {
+  background-color: #7062cd;
+  border: none;
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.button-link-logout:hover {
+  background-color: #534997;
+}
+
+
+
+
+
+
+/* mediaQuery mobile stile bottoni centrati */
+@media (max-width: 991px) {
+  .navbar-nav {
+    align-items: center;
+  }
+
+  .navbar-nav .nav-item {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .navbar-nav .nav-item:last-child {
+    margin-bottom: 10px;
+  }
+
+  .navbar-title {
+    margin: 3rem 0;
+  }
+}

@@ -1,0 +1,42 @@
+<!-- <mat-toolbar color="primary">
+    <span>My App</span>
+    <span class="spacer"></span>
+    <button mat-button (click)="redirect('/home')">Contact</button>
+    <button mat-button (click)="redirect('/role')">Role</button>
+    <button mat-button (click)="redirect('/users')">Users</button>
+</mat-toolbar> -->
+
+
+<div class="pt-5 d-flex justify-content-center ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent rounded-3 ">
+        <div class="container">
+            <div class="navbar-brand">
+                <img src="assets/logo2.svg" alt="Logo" height="30">
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-title-container text-center">
+                    <span class="navbar-title">TechSolutions Inc. - PHONEBOOK </span>
+                </div>
+                <ul class="navbar-nav" *ngIf="logged">
+                    <li class="nav-item">
+                        <button class="nav-link button-link me-2" (click)="redirect('/home')">Contact</button>
+                    </li>
+                    <li class="nav-item" *ngIf="userLogged?.roleManagement">
+                        <button class="nav-link button-link me-2" (click)="redirect('/role')">Role</button>
+                    </li>
+                    <li class="nav-item" *ngIf="userLogged?.userManagement">
+                        <button class="button-link me-2" (click)="redirect('/users')">Users</button>
+                    </li>
+                    <li class="nav-item" >
+                        <button class="button-link-logout" (click)="logout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

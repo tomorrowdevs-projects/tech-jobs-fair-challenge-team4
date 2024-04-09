@@ -1,0 +1,255 @@
+<!-- <div class="container-fluid login-container">
+    <div class="row justify-content-center align-items-center" style="height: 100%;">
+        <div class="col-md-4">
+            <h2 class="text-center mb-4">Benvenuto</h2>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="container home-container mt-5">
+
+<!-- Navigazione superiore -->
+<div class="row mb-3 justify-content-center align-items-center">
+    <div class="col-md-2 col-6 text-center mb-2" *ngIf="loggedUser?.contactManagement || loggedUser?.writing">
+        <button class="btn button-link" (click)="openModal()">New Contact</button>
+    </div>
+    <div class="col-md-9 col-12">
+        <!-- Filtri e Search bar -->
+        <div class="row">
+            <!-- Filtri -->
+            <div class="col-md-3 col-12 mb-2 text-center mb-md-0">
+                <span class="btn button-link">Filtri</span>
+            </div>
+            <!-- Search bar -->
+            <div class="col-md-9 col-12">
+                <input type="text" [(ngModel)]="searchBarText" (ngModelChange)="search()"
+                    class="form-control custom-input">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="row justify-content-center align-items-center">
+
+        <!-- Lista di contatti -->
+        <div class="col-md-5 col-12">
+            <div class="card">
+                <div class="card-header card-contact-header text-center">
+                    <h3 class="mb-0">Elenco Contatti</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr (click)="detail(contact)" *ngFor="let contact of filteredContacts"
+                                    class="contact-row">
+                                    <td>{{ contact.firstName }}</td>
+                                    <td>{{ contact.lastName }}</td>
+                                    <td>{{ contact.email }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Dettaglio Contatto -->
+        <div class="col-md-6 col-12">
+            <div class="card card-mobile">
+                <div class="card-header card-contact-header text-center">
+                    <h4>Contact Details</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <strong>First Name:</strong> {{ detailContact.firstName }}
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Last Name:</strong> {{ detailContact.lastName }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <strong>Title:</strong> {{ detailContact.title }}
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Phone Number:</strong> {{ detailContact.phoneNumber }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <strong>Email:</strong> {{ detailContact.email }}
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Department:</strong> {{ detailContact.department }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <strong>Company:</strong> {{ detailContact.company }}
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Location:</strong> {{ detailContact.location }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <strong>External:</strong> {{ detailContact.isExternal ? 'Yes' : 'No' }}
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Notes:</strong> {{ detailContact.notes }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modale per inserimento nuovo contatto -->
+        <div class="modal" *ngIf="modalOn">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Contact</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstName">First Name:</label>
+                                <input type="text" id="firstName" class="form-control" placeholder="Enter first name"
+                                    [(ngModel)]="contactForm.firstName">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastName">Last Name:</label>
+                                <input type="text" id="lastName" class="form-control" placeholder="Enter last name"
+                                    [(ngModel)]="contactForm.lastName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="title">Title:</label>
+                                <input type="text" id="title" [(ngModel)]="contactForm.title" class="form-control"
+                                    placeholder="Enter title">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number:</label>
+                                <input type="tel" id="phoneNumber" [(ngModel)]="contactForm.phoneNumber"
+                                    class="form-control" placeholder="Enter phone number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" [(ngModel)]="contactForm.email" class="form-control"
+                                    placeholder="Enter email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="telegram">Telegram:</label>
+                                <input type="text" id="telegram" class="form-control"
+                                    placeholder="Enter telegram"><!-- manca la logica perchè non è definita -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="linkedin">Linkedin:</label>
+                                <input type="text" id="linkedin" class="form-control"
+                                    placeholder="Enter linkedin"><!-- manca la logica perchè non è definita -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="department">Department:</label>
+                                <input type="text" id="department" [(ngModel)]="contactForm.department"
+                                    class="form-control" placeholder="Enter department">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="company">Company:</label>
+                                <input type="text" id="company" [(ngModel)]="contactForm.company" class="form-control"
+                                    placeholder="Enter company">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="vatNumber">VAT Number:</label>
+                                <input type="text" id="vatNumber" class="form-control"
+                                    placeholder="Enter VAT number"><!-- manca la logica perchè non è definita -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="location">Location:</label>
+                                <input type="text" id="location" [(ngModel)]="contactForm.location" class="form-control"
+                                    placeholder="Enter location">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="external">External:</label>
+                                <input type="checkbox" id="external"
+                                    class="form-control"><!-- manca la logica perchè non è definita -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="externalType">External Type:</label>
+                                <select id="externalType" class="form-control">
+                                    <option value="supplier">Supplier</option>
+                                    <option value="client">Client</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="notes">Notes:</label>
+                                <textarea id="notes" [(ngModel)]="contactForm.notes" class="form-control"
+                                    placeholder="Enter notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn nav-link button-link" (click)="insertContact()">Submit</button>
+                    <button type="button" class="btn nav-link button-link" (click)="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>

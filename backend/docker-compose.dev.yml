@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  nestjs-app:
+    container_name: nestjs-dev-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/usr/src/app/backend
+      - /usr/src/app/backend/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres:5432/postgresdb
+    depends_on:
+      - postgres
+    command: npm run start:dev
+
+  angular-frontend:
+    container_name: angular-dev-app
+    build:
+      context: ../angular-frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ../angular-frontend:/usr/src/app/angular-frontend
+      - /usr/src/app/angular-frontend/node_modules
+    ports:
+      - "4200:4200"
+    command: npm start
+
+  postgres:
+    container_name: postgres-dev
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgresdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-dev-data:

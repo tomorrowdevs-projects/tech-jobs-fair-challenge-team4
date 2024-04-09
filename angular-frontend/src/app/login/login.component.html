@@ -1,0 +1,35 @@
+<!-- 
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" [(ngModel)]="currentUser.username">
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="currentUser.password">
+    </div>
+    <button type="submit" (click)="login()">Login</button>
+-->
+
+
+<div class="container-fluid login-container">
+    <div class="row justify-content-center align-items-center" style="height: 100%;">
+        <div class="col-md-4">
+            <h2 class="text-center mb-4">Benvenuto, effettua il login</h2>
+            <div class="login-form">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" [(ngModel)]="currentUser.username"
+                        class="form-control">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" [(ngModel)]="currentUser.password"
+                        class="form-control">
+                </div>
+                <div class="justify-content-center d-flex">
+                    <button type="submit" (click)="login()" class="btn nav-link button-link mt-3">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
